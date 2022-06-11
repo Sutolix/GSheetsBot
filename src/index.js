@@ -1,10 +1,10 @@
 require('dotenv').config({path:__dirname+'/../.env'})
 
-// const express = require('express');
+const express = require('express');
 // const TelegramBot = require('node-telegram-bot-api');
 
-// const app = express();
-// app.use(express.json());
+const app = express();
+app.use(express.json());
 
 // replace the value below with the Telegram token you receive from @BotFather
 const token = process.env.BOT_API;
@@ -35,4 +35,4 @@ console.log(token)
 //   bot.sendMessage(chatId, 'Received your message');
 // });
 
-// app.listen(process.env.PORT || 3333);
+app.listen(process.env.PORT || 3333);
