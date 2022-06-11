@@ -1,0 +1,27 @@
+{
+  "name": "gsheetsbot",
+  "version": "1.0.0",
+  "description": "A bot for Telegram that queries Google Sheets",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon src/index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Sutolix/GSheetsBot.git"
+  },
+  "author": "Sutolix",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Sutolix/GSheetsBot/issues"
+  },
+  "homepage": "https://github.com/Sutolix/GSheetsBot#readme",
+  "dependencies": {
+    "dotenv": "^16.0.1",
+    "node-telegram-bot-api": "^0.57.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.16"
+  }
+}
