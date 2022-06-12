@@ -1,7 +1,7 @@
 const { GoogleSpreadsheet } = require('google-spreadsheet');
 
 const getSheetData = async function() {
-  const doc = new GoogleSpreadsheet('1gTutBxoMZs5mb8CR_MszFyRjw9rTtkRrpt39HtUJkng');
+  const doc = new GoogleSpreadsheet(process.env.SHEET_ID);
   
   await doc.useServiceAccountAuth({
     client_email: process.env.GOOGLE_SERVICE_ACCOUNT_EMAIL,
@@ -10,7 +10,7 @@ const getSheetData = async function() {
 
   await doc.loadInfo();
   
-  const sheet = doc.sheetsByIndex[0]
+  const sheet = doc.sheetsByTitle['emails'];
   const rows = await sheet.getRows()
   
   const data = rows.map(({email, chat_id}) => {
@@ -19,12 +19,12 @@ const getSheetData = async function() {
       chat_id
     }
   })
-  
+
   return data;
 }
 
 const getUsersData = async function() {
-  const doc = new GoogleSpreadsheet('1fuM0pGdbO1mSu7hgUP6efN0heFkWnO-PEbk6SiAuwXw');
+  const doc = new GoogleSpreadsheet(process.env.SHEET_ID);
 
   await doc.useServiceAccountAuth({
     client_email: process.env.GOOGLE_SERVICE_ACCOUNT_EMAIL,
@@ -32,9 +32,8 @@ const getUsersData = async function() {
   });
 
   await doc.loadInfo();
-  
-  const sheet = doc.sheetsByIndex[0]
-  const rows = await sheet.getRows()
+  const sheet = doc.sheetsByTitle['users'];
+  const rows = await sheet.getRows();
   
   const data = rows.map(({chat_id, chat_type}) => {
     return {
@@ -47,7 +46,7 @@ const getUsersData = async function() {
 }
 
 const createUserRow = async function(chatId, chatType, created, username) {
-  const doc = new GoogleSpreadsheet('1fuM0pGdbO1mSu7hgUP6efN0heFkWnO-PEbk6SiAuwXw');
+  const doc = new GoogleSpreadsheet(process.env.SHEET_ID);
   
   await doc.useServiceAccountAuth({
     client_email: process.env.GOOGLE_SERVICE_ACCOUNT_EMAIL,
@@ -55,7 +54,7 @@ const createUserRow = async function(chatId, chatType, created, username) {
   });
 
   await doc.loadInfo();
-  const sheet = doc.sheetsByIndex[0];
+  const sheet = doc.sheetsByTitle['users'];
 
   await sheet.addRow({
     chat_id: chatId,
@@ -63,7 +62,6 @@ const createUserRow = async function(chatId, chatType, created, username) {
     created,
     username
   });
-
 }
 
 module.exports = {

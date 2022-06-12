@@ -3,7 +3,12 @@ require('dotenv').config({path:__dirname+'/../.env'})
 const TelegramBot = require('node-telegram-bot-api');
 const express = require('express');
 const gsheets = require ('./gsheetsApi');
-// console.log(gsheets.getSheetData());
+
+// async function dump() {
+//   const data = await gsheets.getUsersData();
+//   console.log(data);
+// }
+// dump();
 
 const app = express();
 app.use(express.json());
