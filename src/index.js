@@ -33,7 +33,6 @@ bot.onText(/\/start/, async (msg, match) => {
     resp = 'Agradecemos sua inscrição.'
   }
 
-
   bot.sendMessage(chatId, resp);
 })
 
@@ -79,8 +78,6 @@ bot.onText(/\/echo (.+)/, (msg, match) => {
 // messages.
 bot.on('message', (msg) => {
   const chatId = msg.chat.id;
-
-  console.log(msg)
 
   // send a message to the chat acknowledging receipt of their message
   bot.sendMessage(chatId, 'Received your message');
