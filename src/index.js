@@ -17,6 +17,26 @@ const validateEmail = (email) => {
   );
 };
 
+bot.onText(/\/start/, async (msg, match) => {
+  const chatId = msg.chat.id;
+  const chatType = msg.chat.type;
+  const username = msg.from.username;
+  const created = msg.date;
+
+  let resp = '';
+  const users = await gsheets.getUsersData();
+
+  if(users.some(e => e.chatId == chatId)) {
+    resp = 'Identificamos que você já se cadastrou.'
+  } else {
+    gsheets.createUserRow(chatId, chatType, created, username)
+    resp = 'Agradecemos sua inscrição.'
+  }
+
+
+  bot.sendMessage(chatId, resp);
+})
+
 bot.onText(/\/email (.+)/, async (msg, match) => {
   // 'msg' is the received Message from Telegram
   // 'match' is the result of executing the regexp above on the text content
@@ -59,6 +79,8 @@ bot.onText(/\/echo (.+)/, (msg, match) => {
 // messages.
 bot.on('message', (msg) => {
   const chatId = msg.chat.id;
+
+  console.log(msg)
 
   // send a message to the chat acknowledging receipt of their message
   bot.sendMessage(chatId, 'Received your message');
